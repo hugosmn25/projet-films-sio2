@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  db:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: db_films
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
+    ports:
+      - "3330:3306"
+    volumes:
+      - sio:/var/lib/mysql
+      - ./docker/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - sio
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: unless-stopped
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db   # nom du service MySQL
+      PMA_PORT: 3330
+      UPLOAD_LIMIT: 256M
+    ports:
+    
+      - "8010:80"
+    networks:
+      - sio
+
+volumes:
+  sio:
+
+networks:
+  sio:
+    driver: bridge
