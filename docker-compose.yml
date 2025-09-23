@@ -24,7 +24,6 @@ services:
       - db
     environment:
       PMA_HOST: db   # nom du service MySQL
-      PMA_PORT: 3330
       UPLOAD_LIMIT: 256M
     ports:
     
