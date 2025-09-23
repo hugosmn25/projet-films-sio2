@@ -14,6 +14,7 @@ session_start();
 
 // Inclusion du contrôleur des films
 require_once __DIR__ . '/../src/controllers/filmController.php';
+require_once __DIR__ . '/../src/controllers/genreController.php';
 
 // Récupération de l'action demandée
 $action = $_GET['action'] ?? 'index';
@@ -42,6 +43,10 @@ switch ($action) {
 
     case 'search':
         searchFilms();
+        break;
+    
+    case 'genre':
+        listeGenres();
         break;
 
     default:

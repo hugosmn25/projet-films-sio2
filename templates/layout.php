@@ -20,6 +20,7 @@
             <ul>
                 <li><a href="index.php?action=index">Liste des Films</a></li>
                 <li><a href="index.php?action=create">Ajouter un Film</a></li>
+                <li><a href="index.php?action=genre">Liste des Genres</a></li>
             </ul>
         </div>
     </nav>
