@@ -104,22 +104,15 @@ function createFilm() {
     
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors = validateFilmData($_POST);
+        $film = $_POST;
         if (empty($errors)) {
             $newFilmId = createFilmData($_POST);
             if ($newFilmId) {
                 setSuccessMessage("Film ajouté avec succès");
-                header("Location: index.php?action=show&id=" . $newFilmId);
+                header("Location: index.php?action=index");
                 exit;
-            } else {
-                $error = "Erreur lors de la création du film";
             }
-        } else {
-            // Pré-remplir avec les données soumises
-            $film = $_POST;
-        }
-    } else {
-        $film = [];
-        $errors = [];
+    }
     }
 
     // Détection de la soumission

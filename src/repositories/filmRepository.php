@@ -68,7 +68,7 @@ function createFilmData($data) {
     }
 
     try {
-        $sql = "INSERT INTO films(titre,realisateur,annee,duree,synopsis,genre_id,note,created_at,updated_at) VALUES (:titre,:realisateur,:annee,:duree,:synopsis,:genre_id,:note,:created_at,:updated_at)";
+        $sql = "INSERT INTO films(titre,realisateur,annee,duree,synopsis,genre_id,note) VALUES (:titre,:realisateur,:annee,:duree,:synopsis,:genre_id,:note)";
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':titre', $data['titre']);
         $stmt->bindParam(':realisateur', $data['realisateur']);
@@ -77,8 +77,6 @@ function createFilmData($data) {
         $stmt->bindParam(':synopsis', $data['synopsis']);
         $stmt->bindParam(':genre_id', $data['genre_id'], PDO::PARAM_INT);
         $stmt->bindParam(':note', $data['note']);
-        $stmt->bindParam(':created_at', $data['created_at']);
-        $stmt->bindParam(':updated_at', $data['updated_at']);
         return $stmt->execute();
     } catch (PDOException $e) {
         error_log("Erreur lors de la mise à jour du film : " . $e->getMessage());
