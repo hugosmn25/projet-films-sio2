@@ -19,8 +19,56 @@ require_once __DIR__ . '/../src/controllers/genreController.php';
 // Récupération de l'action demandée
 $action = $_GET['action'] ?? 'index';
 
+$routes = [
+    'index' => [
+        'fonction' => 'indexFilms',
+        'methodes' => ['GET']
+    ],
+    'show' => [
+        'fonction' => 'showFilm',
+        'methodes' => ['GET']
+    ],
+    'create' => [
+        'fonction' => 'createFilm',
+        'methodes' => ['GET', 'POST']
+    ],
+    'edit' => [
+        'fonction' => 'editFilm',
+        'methodes' => ['GET', 'POST']
+    ],
+    'delete' => [
+        'fonction' => 'deleteFilm',
+        'methodes' => ['GET']
+    ],
+    'search' => [
+        'fonction' => 'searchFilms',
+        'methodes' => ['GET']
+    ],
+    'genre' => [
+        'fonction' => 'listeGenres',
+        'methodes' => ['GET']
+    ],
+];
+
+if (array_key_exists($action, $routes)){
+    $fonction = $routes[$action]['fonction'];
+    $methodes = $routes[$action]['methodes'];
+    if (in_array($_SERVER['REQUEST_METHOD'], $methode)) {
+        $fonction();
+    } else {
+        header("HTTP/1.1 405 Method Not Allowed");
+        echo "Méthode non autorisée pour cette action. Méthodes autorisées : ". $methodes;    
+        exit;
+    }
+} else {
+        header("Location: index.php?action=index");
+        exit;
+}
+
+
+
 // Routage des actions - les contrôleurs gèrent leurs propres paramètres
-switch ($action) {
+/* switch ($action) {
     case 'index':
         indexFilms();
         break;
@@ -54,3 +102,4 @@ switch ($action) {
         header("Location: index.php?action=index");
         exit;
 }
+*/
